@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Members List</title>
+  <link rel="stylesheet" href="member_style.css" />
+</head>
+<body>
+  <div class="form-box">
+    <h2>Registered Members</h2>
+    <table border="1" width="100%" id="membersTable">
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Age</th><th>Gender</th><th>Category</th><th>Notes</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <a href="index.html" class="view-link">← Back to Registration</a>
+  </div>
+
+  <script>
+    fetch("/members")
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector("#membersTable tbody");
+        data.forEach(m => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${m.name}</td>
+            <td>${m.email}</td>
+            <td>${m.phone}</td>
+            <td>${m.age}</td>
+            <td>${m.gender}</td>
+            <td>${m.category}</td>
+            <td>${m.notes}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      });
+  </script>
+</body>
+</html>
